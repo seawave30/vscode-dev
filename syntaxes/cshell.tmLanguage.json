@@ -1,0 +1,199 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "C Shell",
+  "scopeName": "source.cshell",
+  "patterns": [
+    { "include": "#shebang" },
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#heredoc" },
+    { "include": "#variables" },
+    { "include": "#keywords" },
+    { "include": "#builtins" },
+    { "include": "#numbers" },
+    { "include": "#operators" },
+    { "include": "#redirection" }
+  ],
+  "repository": {
+    "shebang": {
+      "name": "comment.line.shebang.cshell",
+      "match": "^(#!).*$",
+      "captures": {
+        "1": { "name": "punctuation.definition.comment.shebang.cshell" }
+      }
+    },
+    "comments": {
+      "name": "comment.line.number-sign.cshell",
+      "begin": "#",
+      "end": "$",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.comment.cshell" }
+      }
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.cshell",
+          "begin": "\"",
+          "end": "\"",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.cshell" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.cshell" }
+          },
+          "patterns": [
+            { "include": "#variables" },
+            { "include": "#escape_chars" },
+            { "include": "#command_substitution" }
+          ]
+        },
+        {
+          "name": "string.quoted.single.cshell",
+          "begin": "'",
+          "end": "'",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.cshell" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.cshell" }
+          }
+        },
+        {
+          "name": "string.interpolated.backtick.cshell",
+          "begin": "`",
+          "end": "`",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.cshell" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.cshell" }
+          },
+          "patterns": [
+            { "include": "#variables" },
+            { "include": "#keywords" },
+            { "include": "#builtins" }
+          ]
+        }
+      ]
+    },
+    "heredoc": {
+      "name": "string.unquoted.heredoc.cshell",
+      "begin": "(<<-?)\\s*([A-Za-z_][A-Za-z0-9_]*)",
+      "end": "^\\s*\\2$",
+      "beginCaptures": {
+        "1": { "name": "keyword.operator.heredoc.cshell" },
+        "2": { "name": "keyword.control.heredoc-token.cshell" }
+      },
+      "patterns": [
+        { "include": "#variables" },
+        { "include": "#escape_chars" }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.other.special.cshell",
+          "match": "\\$(status|path|home|user|shell|term|prompt|prompt2|history|savehist|ignoreeof|noclobber|verbose|echo|noglob|filec|cdpath|mail|argv|#|\\?|\\$|!|_)"
+        },
+        {
+          "name": "variable.other.bracket.cshell",
+          "match": "\\$\\{([A-Za-z_][A-Za-z0-9_]*)\\}",
+          "captures": {
+            "1": { "name": "variable.other.cshell" }
+          }
+        },
+        {
+          "name": "variable.other.array.cshell",
+          "match": "\\$([A-Za-z_][A-Za-z0-9_]*)\\[([0-9]+|\\*)\\]",
+          "captures": {
+            "1": { "name": "variable.other.cshell" },
+            "2": { "name": "constant.numeric.index.cshell" }
+          }
+        },
+        {
+          "name": "variable.other.cshell",
+          "match": "\\$[A-Za-z_][A-Za-z0-9_]*"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.cshell",
+          "match": "\\b(if|else|endif|then|while|end|foreach|in|switch|case|default|breaksw|endsw|break|continue|goto|return)\\b"
+        },
+        {
+          "name": "keyword.control.conditional.cshell",
+          "match": "\\b(if|else|endif)\\b"
+        },
+        {
+          "name": "keyword.control.loop.cshell",
+          "match": "\\b(while|foreach|end|break|continue)\\b"
+        },
+        {
+          "name": "keyword.control.switch.cshell",
+          "match": "\\b(switch|case|default|breaksw|endsw)\\b"
+        }
+      ]
+    },
+    "builtins": {
+      "name": "support.function.builtin.cshell",
+      "match": "(?<=^|;|&&|\\|\\||\\s)(alias|unalias|bg|bindkey|cd|chdir|complete|dirs|echo|eval|exec|exit|fg|glob|history|jobs|kill|limit|log|login|logout|ls-F|nice|nohup|notify|onintr|popd|printenv|pushd|rehash|repeat|set|setenv|shift|source|stop|suspend|time|umask|unset|unsetenv|wait|where|which|unhash)(?=\\s|;|$|\\|)"
+    },
+    "numbers": {
+      "name": "constant.numeric.cshell",
+      "match": "\\b([0-9]+)\\b"
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.logical.cshell",
+          "match": "(&&|\\|\\||!)"
+        },
+        {
+          "name": "keyword.operator.comparison.cshell",
+          "match": "(==|!=|<=|>=|<|>)"
+        },
+        {
+          "name": "keyword.operator.arithmetic.cshell",
+          "match": "(\\+=|-=|\\*=|/=|%=|\\+\\+|--|\\+|-|\\*|/|%)"
+        },
+        {
+          "name": "keyword.operator.assignment.cshell",
+          "match": "(?<![=!<>])=(?!=)"
+        },
+        {
+          "name": "keyword.operator.bitwise.cshell",
+          "match": "(<<|>>|&|\\^|~)"
+        }
+      ]
+    },
+    "redirection": {
+      "patterns": [
+        {
+          "name": "keyword.operator.redirect.cshell",
+          "match": "(>>|>!|>&|>>&|<|<<)"
+        },
+        {
+          "name": "keyword.operator.pipe.cshell",
+          "match": "\\|"
+        }
+      ]
+    },
+    "escape_chars": {
+      "name": "constant.character.escape.cshell",
+      "match": "\\\\[\\\\\"'nrtabfv$`]"
+    },
+    "command_substitution": {
+      "name": "meta.substitution.cshell",
+      "begin": "`",
+      "end": "`",
+      "patterns": [
+        { "include": "#variables" },
+        { "include": "#keywords" },
+        { "include": "#builtins" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "vscode-cshell",
+  "displayName": "C Shell Script",
+  "description": "C Shell (csh/tcsh) language support for Visual Studio Code",
+  "version": "0.1.0",
+  "publisher": "vscode-dev",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seawave30/vscode-dev"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "cshell",
+        "aliases": [
+          "C Shell",
+          "csh",
+          "tcsh"
+        ],
+        "extensions": [
+          ".csh",
+          ".tcsh"
+        ],
+        "firstLine": "^#!\\s*/.*\\b(csh|tcsh)\\b",
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "cshell",
+        "scopeName": "source.cshell",
+        "path": "./syntaxes/cshell.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "cshell",
+        "path": "./snippets/cshell.json"
+      }
+    ]
+  }
+}

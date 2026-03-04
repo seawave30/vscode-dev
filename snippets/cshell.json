@@ -1,0 +1,89 @@
+{
+  "Shebang (csh)": {
+    "prefix": "shebang-csh",
+    "body": ["#!/bin/csh", ""],
+    "description": "C Shell shebang line"
+  },
+  "Shebang (tcsh)": {
+    "prefix": "shebang-tcsh",
+    "body": ["#!/bin/tcsh", ""],
+    "description": "TC Shell shebang line"
+  },
+  "If statement": {
+    "prefix": "if",
+    "body": [
+      "if ( ${1:condition} ) then",
+      "\t$0",
+      "endif"
+    ],
+    "description": "C Shell if statement"
+  },
+  "If-Else statement": {
+    "prefix": "ifelse",
+    "body": [
+      "if ( ${1:condition} ) then",
+      "\t${2:# true branch}",
+      "else",
+      "\t${3:# false branch}",
+      "endif"
+    ],
+    "description": "C Shell if-else statement"
+  },
+  "While loop": {
+    "prefix": "while",
+    "body": [
+      "while ( ${1:condition} )",
+      "\t$0",
+      "end"
+    ],
+    "description": "C Shell while loop"
+  },
+  "Foreach loop": {
+    "prefix": "foreach",
+    "body": [
+      "foreach ${1:var} ( ${2:list} )",
+      "\t$0",
+      "end"
+    ],
+    "description": "C Shell foreach loop"
+  },
+  "Switch statement": {
+    "prefix": "switch",
+    "body": [
+      "switch ( ${1:variable} )",
+      "\tcase ${2:pattern}:",
+      "\t\t${3:# commands}",
+      "\t\tbreaksw",
+      "\tdefault:",
+      "\t\t${4:# default commands}",
+      "\t\tbreaksw",
+      "endsw"
+    ],
+    "description": "C Shell switch statement"
+  },
+  "Set variable": {
+    "prefix": "set",
+    "body": ["set ${1:name} = ${2:value}"],
+    "description": "Set a C Shell variable"
+  },
+  "Set environment variable": {
+    "prefix": "setenv",
+    "body": ["setenv ${1:NAME} ${2:value}"],
+    "description": "Set an environment variable"
+  },
+  "Alias": {
+    "prefix": "alias",
+    "body": ["alias ${1:name} '${2:command}'"],
+    "description": "Create an alias"
+  },
+  "Echo": {
+    "prefix": "echo",
+    "body": ["echo \"${1:message}\""],
+    "description": "Echo a message"
+  },
+  "Source file": {
+    "prefix": "source",
+    "body": ["source ${1:filename}"],
+    "description": "Source a file"
+  }
+}
